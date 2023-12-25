@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var itemsRouter = require('./routes/items');
 var productsRouter = require('./routes/product');
+var authenRouter = require('./routes/authen');
 
 var app = express();
 
@@ -24,28 +25,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/items',itemsRouter);
-app.use('/products',productsRouter);
+app.use('/items', itemsRouter);
+app.use('/products', productsRouter);
+app.use('/authen', authenRouter);
 
 
 mongoose.connect("mongodb://127.0.0.1:27017/TestS2");
-mongoose.connection.once('open', function(){
+mongoose.connection.once('open', function () {
   console.log("thanh cong");
 });
-mongoose.connection.on('error', function(){
+mongoose.connection.on('error', function () {
   console.log(" k thanh cong");
 });
 
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
