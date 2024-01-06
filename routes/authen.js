@@ -94,7 +94,8 @@ router.post("/forgetPassword", async function (req, res, next) {
   var email = req.body.email;
   var user = await modelUser.getByEmail(email);
   if (!user) {
-    return; //return loi
+    responseData.responseReturn(res, 400, true, "email khong ton tai");
+    return;
   }
   console.log(user);
   user.addTokenForgotPassword();
