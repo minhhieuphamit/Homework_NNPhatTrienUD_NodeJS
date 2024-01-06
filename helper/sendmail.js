@@ -19,7 +19,8 @@ module.exports = {
       html:
         "<a href=/authen/resetPassword/" +
         message +
-        ">bam vao day de doi mat khau</a>",
+        ">bam vao day de doi mat khau</a></br>" +
+        message,
     });
   },
 };

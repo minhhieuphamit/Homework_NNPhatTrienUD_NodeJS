@@ -116,12 +116,18 @@ router.post("/forgetPassword", async function (req, res, next) {
 });
 
 router.post("/resetPassword/:token", async function (req, res, next) {
-  var token = req.params.token;
-  var password = req.body.password;
-  var user = await modelUser.getByTokenForgot(token);
-  user.password = password;
-  user.tokenForgot = undefined;
-  user.tokenForgotExp = undefined;
-  await user.save();
+  try {
+    var token = req.params.token;
+    var password = req.body.password;
+    var user = await modelUser.getByTokenForgot(token);
+    user.password = password;
+    user.tokenForgot = undefined;
+    user.tokenForgotExp = undefined;
+    await user.save();
+    responseData.responseReturn(res, 200, true, "reset password thanh cong");
+  } catch (error) {
+    responseData.responseReturn(res, 400, true, "reset password that bai");
+  }
 });
+
 module.exports = router;
